@@ -13,12 +13,12 @@ func FindAllEstablishment() ([]domain.Establishment, error) {
 		" e.name, " +
 		" e.document, " +
 		" e.phone, " +
-		" e.qtde_motoclycles " +
-		" e.qtde_cars " +
-		" a.city " +
-		" a.street " +
-		" a.number " +
-		" a.state " +
+		" e.qtde_motoclycles, " +
+		" e.qtde_cars, " +
+		" a.city, " +
+		" a.street, " +
+		" a.number, " +
+		" a.state, " +
 		" a.neighborhood " +
 		" FROM establishment e " +
 		" JOIN addresses a ON e.address_id = a.id"
@@ -45,6 +45,8 @@ func FindAllEstablishment() ([]domain.Establishment, error) {
 			&establishment.Addrees.State,
 			&establishment.Addrees.Neighborhood,
 		)
+
+		establishments = append(establishments, establishment)
 	}
 
 	if err := rows.Err(); err != nil {

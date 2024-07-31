@@ -48,6 +48,7 @@ func ListEstablisments(res http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		errorResponse := common.ToJsonError(500, err.Error())
 		fmt.Fprint(res, errorResponse)
+    return
 	}
 	response := common.ToJsonSucess(200, establishments)
 	fmt.Fprint(res, response)
