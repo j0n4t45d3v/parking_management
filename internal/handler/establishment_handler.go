@@ -44,12 +44,12 @@ func RegisterEstablisment(res http.ResponseWriter, req *http.Request) {
 }
 
 func ListEstablisments(res http.ResponseWriter, req *http.Request) {
-	establishments, err := service.GetAllEstablishments()
+	establishments, status, err := service.GetAllEstablishments()
 	if err != nil {
-		errorResponse := common.ToJsonError(500, err.Error())
+		errorResponse := common.ToJsonError(int(status), err.Error())
 		fmt.Fprint(res, errorResponse)
     return
 	}
-	response := common.ToJsonSucess(200, establishments)
+	response := common.ToJsonSucess(int(status), establishments)
 	fmt.Fprint(res, response)
 }
