@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -41,6 +42,24 @@ var colection_establishment = []domain.Establishment{
 }
 
 func RegisterEstablisment(res http.ResponseWriter, req *http.Request) {
+  var establishments domain.Establishment
+
+  json.NewDecoder(req.Body).Decode(&establishments)
+
+  idEstablishment, status, err := service.SaveEstablishment(establishments)
+
+	if err != nil {
+		errorResponse := common.ToJsonError(int(status), err.Error())
+		fmt.Fprint(res, errorResponse)
+    return
+	}
+  
+  location := common.BuildUriLocation(*req, "v1/establishment", int(idEstablishment))
+  res.Header().Add("Content-Type", "application/json")
+  res.Header().Add("Location", location)
+ 
+  response := common.ToJsonSucessString(int(status), "Created establishment")
+  fmt.Fprint(res, response)
 }
 
 func ListEstablisments(res http.ResponseWriter, req *http.Request) {

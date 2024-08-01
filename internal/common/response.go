@@ -15,11 +15,27 @@ type ResponseSucess[T any] struct {
 	Data T `json:"data"`
 }
 
+type ResponseSucessString struct {
+  responseBase
+  Message string `json:"message"`
+}
+
 type ResponseError struct {
 	responseBase
 	Error string `json:"error"`
 }
 
+func ToJsonSucessString(status int, data string) string {
+	makeResponse := ResponseSucessString{
+		responseBase: responseBase{
+			Status:    status,
+			Timestamp: time.Now().String(),
+		},
+		Message: data,
+	}
+
+	return toJson(makeResponse)
+}
 func ToJsonSucess[T any](status int, data T) string {
 	makeResponse := ResponseSucess[T]{
 		responseBase: responseBase{
