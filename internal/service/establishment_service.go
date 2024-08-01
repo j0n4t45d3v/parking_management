@@ -40,3 +40,19 @@ func SaveAddress(address domain.Addrees) (int64, int16, error) {
 
   return idAddress, 201, nil
 }
+
+func DeleteEstablishment(id string) (int16, error) {
+  err := repository.DeleteEstablishment(id)
+  if err != nil {
+    return 500, err
+  }
+  return 200, nil
+}
+
+func DeleteAddress(id string) (int16, error) {
+  err := repository.DeleteAddress(id)
+  if err != nil {
+    return 500, err
+  }
+  return 200, nil
+}

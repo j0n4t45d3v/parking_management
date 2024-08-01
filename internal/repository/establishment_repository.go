@@ -62,7 +62,7 @@ func SaveAddress(address domain.Addrees) (int64, error) {
 	query := "INSERT INTO addresses (city, street, number, state, neighborhood) " +
 		" VALUES ($1, $2, $3, $4, $5) RETURNING id"
 
-  var idAddress int64 
+	var idAddress int64
 	con, _ := database.GetConnection()
 	err := con.QueryRow(
 		query,
@@ -74,8 +74,8 @@ func SaveAddress(address domain.Addrees) (int64, error) {
 	).Scan(&idAddress)
 
 	if err != nil {
-    fmt.Println("Error address", err.Error())
-    fmt.Println(query)
+		fmt.Println("Error address", err.Error())
+		fmt.Println(query)
 		return 0, err
 	}
 
@@ -88,7 +88,7 @@ func SaveEstablishment(establishment domain.Establishment, idAddress int64) (int
 		" VALUES ($1, $2, $3, $4, $5, $6) RETURNING id"
 
 	con, _ := database.GetConnection()
-  var idEstablishment int64
+	var idEstablishment int64
 	err := con.QueryRow(
 		query,
 		establishment.Name,
@@ -96,13 +96,39 @@ func SaveEstablishment(establishment domain.Establishment, idAddress int64) (int
 		establishment.Phone,
 		establishment.QtdMotorcycles,
 		establishment.QtdCars,
-    idAddress,
+		idAddress,
 	).Scan(&idEstablishment)
 
 	if err != nil {
-    fmt.Println("Error Establish", err.Error())
 		return 0, err
 	}
 
 	return idEstablishment, nil
+}
+
+func DeleteAddress(id string) error {
+	query := "DELETE FROM address WHERE id = $1"
+
+	con, _ := database.GetConnection()
+	_, err := con.Exec(query, id)
+
+	if err != nil {
+		return err
+	}
+
+  return nil
+}
+
+func DeleteEstablishment(id string) error {
+
+	query := "DELETE FROM establishment WHERE id = $1"
+
+	con, _ := database.GetConnection()
+	_, err := con.Exec(query, id)
+
+	if err != nil {
+		return err
+	}
+
+  return nil
 }
