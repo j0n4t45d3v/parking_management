@@ -34,6 +34,7 @@ func RollbackQueriesInDirectory(dir string, typeCmd string) {
 			delete[typeCmd](filename)
 		}
 	}
+  dropSeedsTable()
 }
 
 func runningQuerysInDirectory(dir string, typeCmd string) {

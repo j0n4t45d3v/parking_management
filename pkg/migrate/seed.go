@@ -16,6 +16,10 @@ func createSeedsTable() {
 	execQuery(createTable)
 }
 
+func dropSeedsTable() {
+	dropTable := "DROP TABLE IF EXISTS seeds "
+	execQuery(dropTable)
+}
 func insertSeed(nameFile string) {
 	query := "INSERT INTO seeds (seed) VALUES ($1)"
 	execQuery(query, nameFile)

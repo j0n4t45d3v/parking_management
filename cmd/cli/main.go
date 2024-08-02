@@ -27,11 +27,6 @@ func main() {
 		migrate.Migration()
 		break
 	case "seed":
-		if rollbackCmd {
-			fmt.Println("Run Rollback Seeds...")
-			migrate.RollbackQueriesInDirectory(migrate.SeedDir, "seed")
-			return
-		}
 		fmt.Println("Run Seeds...")
 		migrate.Seed()
 		break
