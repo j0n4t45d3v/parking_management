@@ -6,3 +6,6 @@ CREATE TABLE IF NOT EXISTS vehicles (
   type CHAR(1) NOT NULL DEFAULT 'C' CHECK (type = 'C' OR type = 'M'),
   withdrawn CHAR(1) NOT NULL DEFAULT 'N' CHECK (withdrawn = 'Y' OR withdrawn = 'N')
 )
+
+--ROLLBACK
+DROP TABLE IF EXISTS vehicles CASCADE

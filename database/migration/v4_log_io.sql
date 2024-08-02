@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS logs_io_vehicles (
   id_vehicle INTEGER NOT NULL,
   FOREIGN KEY(id_vehicle) REFERENCES vehicles(id)
 )
+
+--ROLLBACK
+DROP TABLE IF EXISTS logs_io_vehicles CASCADE

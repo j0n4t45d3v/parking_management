@@ -5,6 +5,11 @@ CREATE TABLE IF NOT EXISTS establishment (
   phone VARCHAR(15),
   qtde_motoclycles INTEGER NOT NULL DEFAULT 0,
   qtde_cars INTEGER NOT NULL DEFAULT 0,
-  address_id INTEGER NOT NULL,
-  FOREIGN KEY(address_id) REFERENCES addresses(id)
+  address_id INTEGER NOT NULL ,
+  FOREIGN KEY(address_id) 
+  REFERENCES addresses(id) 
+  ON DELETE CASCADE
 )
+
+--ROLLBACK
+DROP TABLE IF EXISTS establishment
