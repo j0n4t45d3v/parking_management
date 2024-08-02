@@ -45,6 +45,32 @@ func FindAll() ([]domain.Vehicle, error) {
 	return vehicles, nil
 }
 
+func FindById(id string) (domain.Vehicle, error) {
+	query := "SELECT " +
+		"v.band, " +
+		"v.model, " +
+		"v.plate, " +
+		"v.type, " +
+		"FROM vehicles v" +
+		"WHERE v.id = $1"
+
+	var vehicle domain.Vehicle
+
+	con, _ := database.GetConnection()
+	err := con.QueryRow(query, id).Scan(
+		&vehicle.Band,
+		&vehicle.Model,
+		&vehicle.Plate,
+		&vehicle.Type,
+	)
+  
+  if err != nil {
+    return domain.Vehicle{}, err
+  }
+
+	return vehicle, nil
+}
+
 func Save(vehicle domain.Vehicle) (string, error) {
 	query := "INSERT INTO vehicles (band, model, plate, type) VALUES ($1, $2, $3, $4) RETURNING id"
 
@@ -95,7 +121,7 @@ func Update(id string, vehicleUpdate domain.Vehicle) (domain.Vehicle, error) {
 	)
 
 	if err != nil {
-		return nil, err
+		return domain.Vehicle{}, err
 	}
 
 	return vehicleUpdate, nil
