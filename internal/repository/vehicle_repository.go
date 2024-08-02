@@ -5,7 +5,7 @@ import (
 	"github.com/j0n4t45d3v/parking_management/internal/domain"
 )
 
-func FindAll() ([]domain.Vehicle, error) {
+func FindAllVehicles() ([]domain.Vehicle, error) {
 	query := "SELECT " +
 		"v.band, " +
 		"v.model, " +
@@ -45,7 +45,7 @@ func FindAll() ([]domain.Vehicle, error) {
 	return vehicles, nil
 }
 
-func FindById(id string) (domain.Vehicle, error) {
+func FindByIdVehicle(id string) (domain.Vehicle, error) {
 	query := "SELECT " +
 		"v.band, " +
 		"v.model, " +
@@ -71,7 +71,7 @@ func FindById(id string) (domain.Vehicle, error) {
 	return vehicle, nil
 }
 
-func Save(vehicle domain.Vehicle) (string, error) {
+func SaveVehicle(vehicle domain.Vehicle) (string, error) {
 	query := "INSERT INTO vehicles (band, model, plate, type) VALUES ($1, $2, $3, $4) RETURNING id"
 
 	con, _ := database.GetConnection()
@@ -93,7 +93,7 @@ func Save(vehicle domain.Vehicle) (string, error) {
 	return idVehicle, nil
 }
 
-func Delete(id string) error {
+func DeleteVehicle(id string) error {
 	query := "DELETE FROM vehicles WHERE id = $1"
 
 	con, _ := database.GetConnection()
@@ -106,7 +106,7 @@ func Delete(id string) error {
 	return nil
 }
 
-func Update(id string, vehicleUpdate domain.Vehicle) (domain.Vehicle, error) {
+func UpdateVehicle(id string, vehicleUpdate domain.Vehicle) (domain.Vehicle, error) {
 	query := "UPDATE vehicles SET band = $1, model = $2, plate = $3, type = $4 WHERE id = $5"
 
 	con, _ := database.GetConnection()
