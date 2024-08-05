@@ -47,8 +47,9 @@ func FindByIdLogIoVehicle(id string) (domain.LogIOVehicle, error) {
 	return logIO, err
 }
 
-func SaveLogIOVehicle() (int, error) {
-	query := "INSERT INTO logs_io_vehicles (entry_time) VALUES (CURRENT_TIMESTAMP) RETURNING id"
+func SaveLogIOVehicle(idVehicle string) (int, error) {
+	query := "INSERT INTO logs_io_vehicles (entry_time, id_vehicle)" +
+		" VALUES (CURRENT_TIMESTAMP, $1) RETURNING id"
 
 	con, _ := database.GetConnection()
 	var idLogIO int
