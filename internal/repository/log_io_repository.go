@@ -37,14 +37,16 @@ func FindAllLogsIoVehicles() ([]domain.LogIOVehicle, error) {
 func FindByIdLogIoVehicle(id string) (domain.LogIOVehicle, error) {
 	query := "SELECT " +
 		"lv.entry_time, " +
-		"lv.departure_time " +
-		"FROM logs_io_vehicles lv" +
+		"lv.departure_time, " +
+		"v.plate " +
+		"FROM logs_io_vehicles lv " +
+		"JOIN vehicles v ON v.id = lv.id_vehicle " +
 		"WHERE lv.id = $1"
 
 	var logIO domain.LogIOVehicle
 
 	con, _ := database.GetConnection()
-	err := con.QueryRow(query, id).Scan(&logIO.EntryTime, &logIO.DepartureTime)
+	err := con.QueryRow(query, id).Scan(&logIO.EntryTime, &logIO.DepartureTime, &logIO.PlateVehicle)
 
 	return logIO, err
 }
