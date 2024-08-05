@@ -8,4 +8,5 @@ import (
 func SetRouteV1LogIo(r *mux.Router) {
   logIoVehicleRouter := r.PathPrefix("/v1/log_io_vehicle").Subrouter()
   logIoVehicleRouter.HandleFunc("", handler.GetAllLogsIOVehicle).Methods("GET")
+  logIoVehicleRouter.HandleFunc("/{id}", handler.GetOneByIdLogIO).Methods("GET")
 }
