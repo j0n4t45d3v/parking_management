@@ -14,6 +14,7 @@ func main() {
   muxRoute.Use(middlerware.ContentTypeMiddlerware)
   api := muxRoute.PathPrefix("/api").Subrouter()
   route.SetRouteV1Establishment(api)
+  route.SetRouteV1LogIo(api)
   log.Println("Running Server...")
   http.ListenAndServe(":8000", muxRoute)
 }
