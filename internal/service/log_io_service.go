@@ -36,3 +36,12 @@ func RegisterLogIo(idVehicle string) (int, int16, error) {
   return result, 201, nil
 }
 
+func DeleteLogIO(idVehicle string) (int16, error) {
+  err := repository.DeleteLogIOVehicle(idVehicle)
+
+  if err != nil {
+    return 500, err
+  }
+
+  return 200,nil 
+}
