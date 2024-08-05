@@ -25,3 +25,14 @@ func GetByIdLog(id string) (domain.LogIOVehicle, int16, error) {
 
 	return result, 200, nil
 }
+
+func RegisterLogIo(idVehicle string) (int, int16, error) {
+  result, err := repository.SaveLogIOVehicle(idVehicle)
+
+  if err != nil {
+    return 0, 500, err
+  }
+
+  return result, 201, nil
+}
+
