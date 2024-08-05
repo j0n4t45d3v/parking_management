@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/j0n4t45d3v/parking_management/database"
 	"github.com/j0n4t45d3v/parking_management/internal/domain"
 )
@@ -8,12 +10,16 @@ import (
 func FindAllLogsIoVehicles() ([]domain.LogIOVehicle, error) {
 	query := "SELECT " +
 		"lv.entry_time, " +
-		"lv.departure_time " +
-		"FROM logs_io_vehicles lv"
+		"lv.departure_time, " +
+		"v.plate " +
+		"FROM logs_io_vehicles lv " +
+    "JOIN vehicles v ON v.id = lv.id_vehicle"
 
 	con, _ := database.GetConnection()
 	rows, err := con.Query(query)
 	defer rows.Close()
+
+  fmt.Println(query)
 
 	logsIo := []domain.LogIOVehicle{}
 
@@ -23,7 +29,7 @@ func FindAllLogsIoVehicles() ([]domain.LogIOVehicle, error) {
 
 	for rows.Next() {
 		var logIo domain.LogIOVehicle
-		rows.Scan(logIo.EntryTime, logIo.DepartureTime)
+		rows.Scan(&logIo.EntryTime, &logIo.DepartureTime, &logIo.PlateVehicle)
 		logsIo = append(logsIo, logIo)
 	}
 
