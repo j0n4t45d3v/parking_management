@@ -84,7 +84,7 @@ func SaveVehicle(vehicle domain.Vehicle) (string, error) {
 		vehicle.Model,
 		vehicle.Plate,
 		vehicle.Type,
-	).Scan(idVehicle)
+	).Scan(&idVehicle)
 
 	if err != nil {
 		return "", err
