@@ -67,7 +67,9 @@ func DeleteLogIOVehicle(id string) error {
 }
 
 func DepartureVehicle(idVehicle string) error {
-	query := "UPDATE logs_io_vehicles SET departure_time = CURRENT_TIMESTAMP WHERE id_vehicle = $1"
+	query := "UPDATE logs_io_vehicles " +
+		" SET departure_time = CURRENT_TIMESTAMP " +
+		" WHERE id_vehicle = $1"
 
 	con, _ := database.GetConnection()
 	_, err := con.Exec(query, idVehicle)
