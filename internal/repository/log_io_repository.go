@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"github.com/j0n4t45d3v/parking_management/database"
 	"github.com/j0n4t45d3v/parking_management/internal/domain"
 )
@@ -18,8 +16,6 @@ func FindAllLogsIoVehicles() ([]domain.LogIOVehicle, error) {
 	con, _ := database.GetConnection()
 	rows, err := con.Query(query)
 	defer rows.Close()
-
-  fmt.Println(query)
 
 	logsIo := []domain.LogIOVehicle{}
 
