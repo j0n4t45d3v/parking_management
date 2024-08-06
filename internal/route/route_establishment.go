@@ -6,5 +6,8 @@ import (
 )
 
 func SetRouteV1Establishment(r *mux.Router) {
-  r.HandleFunc("/v1/establishment", handler.ListEstablisments)
+  establishmentRoute := r.PathPrefix("/v1/establishment").Subrouter()
+  establishmentRoute.HandleFunc("", handler.ListEstablisments).Methods("GET")
+  establishmentRoute.HandleFunc("", handler.RegisterEstablisment).Methods("POST")
+  establishmentRoute.HandleFunc("/{id}", handler.DeleteEstablisments).Methods("DELETE")
 } 

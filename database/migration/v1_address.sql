@@ -6,3 +6,6 @@ CREATE TABLE IF NOT EXISTS addresses (
   state VARCHAR(3) NOT NULL,
   neighborhood VARCHAR(40) NOT NULL
 ) 
+
+--ROLLBACK 
+DROP TABLE IF EXISTS addresses CASCADE

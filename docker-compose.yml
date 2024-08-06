@@ -1,8 +1,25 @@
 version: '3'
 
 services:
+
+  api: 
+    build: .
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      - database
+    environment:
+      POSTGRES_HOST: database.postgres
+      POSTGRES_PASS: senhasecreta
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
   database: 
     image: postgres:latest
+    hostname: database.postgres
     environment:
       POSTGRES_PASSWORD: senhasecreta
     ports:
